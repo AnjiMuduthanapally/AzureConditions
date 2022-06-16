@@ -33,7 +33,7 @@ stages:
   - stage: destroy
     jobs:
       - job: destroy
-        condition: and(${{parameters.destroy}}, succeeded('TF_dev_deploy'))
+        condition: and(${{parameters.destroy}}, succeeded('Deploy'))
         steps:
           - script: |
               echo 'terraform destroy'
