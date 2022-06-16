@@ -7,7 +7,7 @@ trigger:
 - main
 parameters:
   - name: destroy
-    default: true
+    default: false
     values:
       - true
       - false
