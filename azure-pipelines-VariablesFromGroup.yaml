@@ -1,0 +1,11 @@
+name: 'VariableFromGroup $(SourceBranchName)'
+variables:
+- group: development
+pool:
+  vmImage: 'ubuntu-latest'
+steps:
+- script:
+    echo "Tier $(tier)"
+    echo "Target $(env)"
+  displayName: 'Show variables from group'
+
