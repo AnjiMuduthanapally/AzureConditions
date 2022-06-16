@@ -31,9 +31,9 @@ stages:
               echo 'terraform apply'
             displayName: run terraform apply
   - stage: destroy
+    condition: and(${{parameters.destroy}}, succeeded('Deploy'))
     jobs:
       - job: destroy
-        condition: and(${{parameters.destroy}}, succeeded('Deploy'))
         steps:
           - script: |
               echo 'terraform destroy'
