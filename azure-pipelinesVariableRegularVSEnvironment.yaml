@@ -1,1 +1,16 @@
-#
+name: 'Varaibles-RegularVSenvironment $(SourceBranchName)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+ variables:
+   tier: web
+   target: dev
+  steps:
+    - bash: |
+        echo $(tier)
+        echo $(target)
+      displayName: 'Show value as regular Variable'
+    - bash: |
+        echo $TIER
+        echo $TARGET
+      displayName: 'Show value as env variable'
