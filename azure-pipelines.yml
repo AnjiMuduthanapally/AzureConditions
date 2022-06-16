@@ -1,0 +1,40 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+parameters:
+  - name: destroy
+    default: true
+    values:
+      - true
+      - false
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: build
+    jobs:
+      - job: TF_BUILD
+        steps:
+          - script: |
+              echo 'terraform init'
+            displayName: run terraform init
+  - stage: Deploy
+    jobs:
+      - job: TF_dev_deploy
+        condition: succeeded()
+        steps:
+          - script: |
+              echo 'terraform apply'
+            displayName: run terraform apply
+  - stage: destroy
+    jobs:
+      - job: destroy
+        condition: and(${{parameters.destroy}}, succeeded('TF_dev_deploy'))
+        steps:
+          - script: |
+              echo 'terraform destroy'
+            displayName: run terraform destroy
